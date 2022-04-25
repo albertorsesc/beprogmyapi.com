@@ -2,16 +2,22 @@
 
 namespace Tests\Feature\Api\Bands;
 
-use App\Models\Bands\Band;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Bands\Band;
+use Database\Seeders\CountrySeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BandsTest extends TestCase
 {
     use RefreshDatabase;
 
     private string $routePrefix = 'api.bands.';
+
+    protected function setUp () : void
+    {
+        parent::setUp();
+        $this->loadSeeders([CountrySeeder::class]);
+    }
 
     /**
      * @test

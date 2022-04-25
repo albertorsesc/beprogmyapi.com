@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Bands;
 
+use App\Models\Country;
 use App\Models\Bands\Band;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,9 @@ class BandFactory extends Factory
     public function definition()
     {
         return [
+            'country_id' => Country::query()->inRandomOrder()->first()->id,
             'name' => $this->faker->words(2, true),
+            'playing_since_year' => $this->faker->dateTimeBetween('-30 years', 'now')->format('Y-m-d'),
         ];
     }
 }

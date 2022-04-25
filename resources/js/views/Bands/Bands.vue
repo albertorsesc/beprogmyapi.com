@@ -76,6 +76,11 @@ export default {
             this.bandTab = tab
         }
     },
+    mounted() {
+        Event.$on('band-created', band => {
+            this.switchTab('bands.index')
+        })
+    },
     components: {
         BandList: () => import(/* webpackChunkName: "band-list" */ './BandList'),
     }

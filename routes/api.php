@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+    use App\Http\Controllers\Api\CountryController;
+    use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Bands\BandController;
 
@@ -9,5 +10,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->name('api.')->group(function () {
+    Route::get('/countries', CountryController::class)->name('countries.index');
     Route::post('/bands', [BandController::class, 'store'])->name('bands.store');
 });

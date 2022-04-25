@@ -16,7 +16,7 @@
                     </p>
                 </div>
                 <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form action="#" method="POST" class="space-y-6" id="create-band">
+                    <form @submit.prevent class="space-y-6" id="create-band">
                         <div class="grid grid-cols-4 gap-6">
                             <!-- Name -->
                             <div class="col-span-3 sm:col-span-2">
@@ -50,13 +50,14 @@
                         <div class="grid grid-cols-4 gap-6">
                             <!-- PlayingSince -->
                             <div class="col-span-3 sm:col-span-2">
-                                <label for="started_at" class="block text-sm font-medium text-gray-700">
-                                    Playing since
+                                <label for="playing_since_year"
+                                       class="block text-sm font-medium text-gray-700">
+                                    Playing since Year (YYYY)
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input type="text"
-                                           v-model="bandForm.started_at"
-                                           id="started_at"
+                                           v-model="bandForm.playing_since_year"
+                                           id="playing_since_year"
                                            class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Caligula's Horse">
                                 </div>
                                 <p class="text-red-500">message</p>
@@ -68,15 +69,20 @@
                                     Country
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
-                                    <select v-model="bandForm.country" id="country_id" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300">
+                                    <select v-model="bandForm.country"
+                                            id="country_id"
+                                            class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300">
                                         <option value="" selected disabled>Select Country</option>
-                                        <option value="#">name</option>
+                                        <option v-for="country in countries"
+                                                :key="country.id"
+                                                :value="country"
+                                                v-text="country.name"
+                                        ></option>
                                     </select>
                                 </div>
                                 <p class="text-red-500">message</p>
                             </div>
                         </div>
-
 
                         <div class="grid grid-cols-4 gap-6">
                             <!-- City -->
@@ -219,7 +225,8 @@
             <a href="#" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Cancel
             </a>
-            <button type="submit" form="create-band" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button @click="store"
+                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Save
             </button>
         </div>
@@ -230,16 +237,48 @@
 export default {
     data() {
         return {
+            bandsEndpoint: '/bands',
+            countriesEndpoint: '/countries',
             bandForm: {
                 name: '',
+                playing_since_year: '',
+                country: {},
                 genres: [],
-                country: '',
                 city: '',
-                officialSite: '',
-                spotifySite: '',
-                bandSite: '',
-            }
+            },
+            countries: [],
+
+            loading: false,
         }
+    },
+    methods: {
+        store() {
+            this.loading = true;
+            axios.post(this.bandsEndpoint, {
+                name: this.bandForm.name,
+                playing_since_year: this.bandForm.playing_since_year,
+                country_id: this.bandForm.country ? this.bandForm.country.id : null,
+                // genres: this.bandForm.genres,
+                // city: this.bandForm.city,
+            }).then(response => {
+                    this.loading = false;
+                    Event.$emit('band-created', response.data);
+                }).catch(error => {
+                    console.log(error)
+                    this.loading = false;
+                })
+        },
+        getCountries() {
+            axios.get(this.countriesEndpoint)
+                .then(response => {
+                    this.countries = response.data.data;
+                }).catch(error => {
+                    console.log(error)
+                })
+        },
+    },
+    mounted() {
+        this.getCountries()
     }
 }
 </script>
