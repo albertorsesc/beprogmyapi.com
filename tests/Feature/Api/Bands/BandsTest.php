@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api\Bands;
 
 use App\Models\Genre;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use App\Models\Bands\Band;
 use Database\Seeders\CountrySeeder;
@@ -79,5 +80,32 @@ class BandsTest extends TestCase
                 'genre_id' => $genre
             ]);
         }
+    }
+
+    /* Notifications */
+
+    public function notification_sent_when_creating_a_new_band()
+    {
+        $this->markTestSkipped('Not implemented yet');
+        Notification::fake();
+
+        $band = $this->make(Band::class);
+        [$genre1, $genre2] = $this->create(Genre::class, [], 2);
+        $genres = ['genres' => [$genre1->id, $genre2->id]];
+
+        Notification::assertNothingSent();
+
+        $response = $this->postJson(
+            route($this->routePrefix . 'store'),
+            array_merge($band->toArray(), $genres)
+        );
+        $response->assertCreated();
+
+        Notification::assertSentTo(
+            auth()->user(),
+            function (NewBandCreated $notification, $channels) use ($band) {
+                return $notification->order->id === band->id;
+            }
+        );
     }
 }

@@ -13,12 +13,14 @@ class SubscriptionController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email|max:255|unique:subscriptions',
+        ], [
+            'email.unique' => 'You are already subscribed to our newsletter.',
         ]);
 
         if (Newsletter::isSubscribed($request->email)) {
             return redirect()->back()->with('success', 'This email is already subscribed, Thanks!');
         }
-        Subscription::create($request->all());
+        Subscription::create(['email' => $request->email]);
         Newsletter::subscribe($request->email);
 
         return redirect()->back()->with('success', 'Thanks for subscribing!');

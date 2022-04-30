@@ -26,7 +26,7 @@
 </head>
 <body class="antialiased">
 <div id="app" class="relative flex justify-center min-h-screen bg-greenlight sm:items-center sm:pt-0">
-    @if (Route::has('login'))
+    @if (Route::has('login') && auth()->check())
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             @auth
                 <a href="{{ url('/dashboard') }}" class="text-lg text-gray-700 underline">Dashboard</a>
@@ -41,6 +41,12 @@
     @endif
 
     <div class="w-full mx-10 my-10 md:my-0 md:mx-0 md:max-w-6xl md:mx-auto sm:px-6 lg:px-8 lg:my-12">
+
+        @if(session()->has('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                {{ session()->get('success') }}
+            </div>
+        @endif
 
         <div class="bg-white rounded-lg shadow-lg">
             <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:py-24 lg:px-8">
@@ -60,6 +66,9 @@
                                    id="email"
                                    class="block w-full border border-greendark rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-greenlight focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-greenlight"
                                    placeholder="Enter your email...">
+                            @error('email')
+                                <p class="mt-1 text-left text-sm text-red-600 font-medium">{{ $message }}</p>
+                            @enderror
                             <p class="mt-1 text-left text-sm text-gray-600 font-medium">We will notify as soon as BeProgMyApi is live.</p>
                         </div>
                         <div class="sm:mt-0 sm:ml-3">
