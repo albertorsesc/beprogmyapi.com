@@ -29,7 +29,7 @@
                                            id="name"
                                            class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Caligula's Horse">
                                 </div>
-                                <p class="text-red-500">message</p>
+                                <p v-if="errors.name" v-text="errors.name[0]" class="text-red-500"></p>
                             </div>
 
                             <!-- Genres -->
@@ -50,7 +50,7 @@
                                         ></option>
                                     </select>
                                 </div>
-                                <p class="text-red-500">message</p>
+                                <p v-if="errors.genres" v-text="errors.genres[0]" class="text-red-500"></p>
                             </div>
                         </div>
 
@@ -65,9 +65,10 @@
                                     <input type="text"
                                            v-model="bandForm.started_at"
                                            id="started_at"
-                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Caligula's Horse">
+                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
+                                           placeholder="2011">
                                 </div>
-                                <p class="text-red-500">message</p>
+                                <p v-if="errors.started_at" v-text="errors.started_at[0]" class="text-red-500"></p>
                             </div>
 
                             <!-- Country -->
@@ -87,7 +88,7 @@
                                         ></option>
                                     </select>
                                 </div>
-                                <p class="text-red-500">message</p>
+                                <p v-if="errors.country_id" v-text="errors.country_id[0]" class="text-red-500"></p>
                             </div>
                         </div>
 
@@ -101,9 +102,10 @@
                                     <input type="text"
                                            v-model="bandForm.city"
                                            id="city"
-                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Caligula's Horse">
+                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
+                                           placeholder="Brisbane">
                                 </div>
-                                <p class="text-red-500">message</p>
+                                <p v-if="errors.city" v-text="errors.city[0]" class="text-red-500"></p>
                             </div>
 
                             <!-- OfficialSite -->
@@ -133,10 +135,9 @@
                                           v-model="bandForm.bio"
                                           rows="10"
                                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                          placeholder="you@example.com"
+                                          placeholder="The band started..."
                                 ></textarea>
                             </div>
-                            <p class="text-red-500">message</p>
                         </div>
 
                         <!-- Logo -->
@@ -224,6 +225,7 @@ export default {
             countries: [],
             genres: [],
 
+            errors: [],
             loading: false,
         }
     },
@@ -241,6 +243,8 @@ export default {
                 Event.$emit('band-created', response.data);
                 this.loading = false;
             }).catch(error => {
+                this.errors = error.response.status === 422 ?
+                    error.response.data.errors : []
                 console.log(error)
                 this.loading = false;
             })
