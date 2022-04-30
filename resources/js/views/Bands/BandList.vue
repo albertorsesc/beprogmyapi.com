@@ -1,22 +1,31 @@
 <template>
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow-lg divide-y divide-gray-200">
+        <li v-for="band in bands"
+            :key="band.id"
+            class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow-lg divide-y divide-gray-200">
             <div class="flex-1 flex flex-col p-8">
                 <img class="w-36 h-36 object-cover mx-auto bg-black rounded-full" src="https://theprogmind.files.wordpress.com/2015/09/press_photo_03.jpg" alt="">
-                <h3 class="mt-6 text-gray-900 text-sm font-medium">Caligula's Horse</h3>
+                <h3 class="mt-6 text-gray-900 text-sm font-medium" v-text="band.name"></h3>
                 <dl class="mt-1 flex-grow flex flex-col justify-between">
                     <dt class="sr-only">Country</dt>
-                    <dd class="text-gray-500 text-sm">Brisbane, Australia</dd>
+                    <dd class="text-gray-500 text-sm">
+                        <span v-if="band.city">{{ band.city }}, </span>
+                        <span v-text="band.country.name"></span>
+                    </dd>
                     <dt class="sr-only">Genres</dt>
-                    <dd class="mt-3 flex justify-evenly">
-                        <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">Prog. Metal</span>
-                        <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">Prog. Rock</span>
+                    <dd class="mt-3 flex justify-between">
+                        <span v-for="(genre, index) in band.genres"
+                              :key="genre.id"
+                              v-if="index <= 1"
+                              v-text="genre.name"
+                              class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full"
+                        ></span>
                     </dd>
                 </dl>
             </div>
             <div>
                 <div class="-mt-px flex divide-x divide-gray-200">
-                    <div class="w-0 flex-1 flex">
+                    <div v-if="false" class="w-0 flex-1 flex">
                         <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                             <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -40,6 +49,25 @@
 
 <script>
 export default {
-
+    data() {
+        return {
+            bandsEndpoint: 'bands',
+            bands: [],
+        }
+    },
+    methods: {
+        getBands() {
+            axios.get(this.bandsEndpoint)
+                .then(response => {
+                    this.bands = response.data.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    },
+    mounted() {
+        this.getBands();
+    }
 }
 </script>

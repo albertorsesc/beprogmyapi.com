@@ -2,13 +2,28 @@
 
 namespace App\Models\Bands;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Genre;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
 
 class Band extends Model
 {
     use HasFactory;
 
-    protected $casts = ['playing_since_year' => 'date:Y'];
-    protected $fillable = ['name', 'playing_since_year', 'country_id'];
+    protected $casts = ['started_at' => 'date:Y'];
+    protected $fillable = ['name', 'started_at', 'country_id', 'city', 'bio'];
+
+    /* Relations */
+
+    public function genres() : BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class);
+    }
+
+    public function country() : BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

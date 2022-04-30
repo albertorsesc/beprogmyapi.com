@@ -8,12 +8,12 @@
 
 #### Roadmap
 
-* [] Register/Login
-* [] Get all Bands
+* [x] Register/Login
+* [x] Get all Bands
+* [x] Get all Genres
+* [x] Create a Band
 * [] Get all Albums
 * [] Get all Songs from an Album
-* [] Get all Genres
-* [] Create a Band
 * [] Add Members to a Band
 * [] Add Album to Band
 * [] Add Song to an Album

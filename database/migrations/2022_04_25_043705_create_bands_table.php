@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('bands', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->string('playing_since_year')->nullable();
-            $table->foreignId('country_id')->nullable()->constrained();
+            $table->string('started_at')->nullable();
+            $table->foreignId('country_id')->constrained();
+            $table->string('city', 255)->nullable();
+            $table->longText('bio')->nullable();
             $table->timestamps();
         });
     }

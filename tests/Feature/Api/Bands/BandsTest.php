@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\Bands;
 
+use App\Models\Genre;
 use Tests\TestCase;
 use App\Models\Bands\Band;
 use Database\Seeders\CountrySeeder;
@@ -17,6 +18,37 @@ class BandsTest extends TestCase
     {
         parent::setUp();
         $this->loadSeeders([CountrySeeder::class]);
+        $this->signIn();
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function authenticated_user_can_get_all_bands()
+    {
+        $this->withoutExceptionHandling();
+        $band = $this->create(Band::class);
+        $genres = $this->create(Genre::class, [], 2);
+        $band->genres()->attach($genres->pluck('id'));
+
+        $response = $this->getJson(route($this->routePrefix . 'index'));
+        $response->assertOk();
+        $response->assertJson([
+            'data' => [
+                [
+                    'id' => $band->id,
+                    'name' => $band->name,
+                    'genres' => [
+                        ['id' => $genres->find(1)->id],
+                        ['id' => $genres->find(2)->id],
+                    ],
+                    'country' => ['id' => $band->country->id],
+                    'city' => $band->city,
+                    'bio' => $band->bio,
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -25,13 +57,13 @@ class BandsTest extends TestCase
      */
     public function authenticated_user_can_store_a_band()
     {
-        $this->signIn();
-
         $band = $this->make(Band::class);
+        [$genre1, $genre2] = $this->create(Genre::class, [], 2);
+        $genres = ['genres' => [$genre1->id, $genre2->id]];
 
         $response = $this->postJson(
             route($this->routePrefix . 'store'),
-            $band->toArray()
+            array_merge($band->toArray(), $genres)
         );
         $response->assertCreated();
         $response->assertJson([
@@ -39,5 +71,13 @@ class BandsTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('bands', $band->toArray());
+
+        $newBand = Band::first();
+        foreach ($genres as $genre) {
+            $this->assertDatabaseHas('band_genre', [
+                'band_id' => $newBand->id,
+                'genre_id' => $genre
+            ]);
+        }
     }
 }

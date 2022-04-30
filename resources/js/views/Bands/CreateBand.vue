@@ -38,9 +38,16 @@
                                     Genres
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
-                                    <select v-model="bandForm.genres" id="genres" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300">
+                                    <select v-model="bandForm.genres"
+                                            id="genres"
+                                            class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
+                                            multiple>
                                         <option value="" selected disabled>Select Genre</option>
-                                        <option value="#">name</option>
+                                        <option v-for="genre in genres"
+                                                :key="genre.id"
+                                                :value="genre.id"
+                                                v-text="genre.name"
+                                        ></option>
                                     </select>
                                 </div>
                                 <p class="text-red-500">message</p>
@@ -48,16 +55,16 @@
                         </div>
 
                         <div class="grid grid-cols-4 gap-6">
-                            <!-- PlayingSince -->
+                            <!-- StartedAt -->
                             <div class="col-span-3 sm:col-span-2">
-                                <label for="playing_since_year"
+                                <label for="started_at"
                                        class="block text-sm font-medium text-gray-700">
                                     Playing since Year (YYYY)
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input type="text"
-                                           v-model="bandForm.playing_since_year"
-                                           id="playing_since_year"
+                                           v-model="bandForm.started_at"
+                                           id="started_at"
                                            class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300" placeholder="Caligula's Horse">
                                 </div>
                                 <p class="text-red-500">message</p>
@@ -100,7 +107,7 @@
                             </div>
 
                             <!-- OfficialSite -->
-                            <div class="col-span-3 sm:col-span-2">
+<!--                            <div class="col-span-3 sm:col-span-2">
                                 <label for="company_website" class="block text-sm font-medium text-gray-700">
                                     Official Site
                                 </label>
@@ -113,42 +120,7 @@
                                            class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                                            placeholder="caligulashorse.com">
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-4 gap-6">
-                            <!-- Spotify -->
-                            <div class="col-span-3 sm:col-span-2">
-                                <label for="name" class="block text-sm font-medium text-gray-700">
-                                    Spotify Profile URL
-                                </label>
-                                <div class="mt-1 flex rounded-md shadow-sm">
-                                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                                      https://
-                                    </span>
-                                    <input type="text"
-                                           name="company_website"
-                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                                           placeholder="caligulashorse.com">
-                                </div>
-                            </div>
-
-                            <!-- Bandcamp -->
-                            <div class="col-span-3 sm:col-span-2">
-                                <label for="company_website" class="block text-sm font-medium text-gray-700">
-                                    Official BandCamp URL
-                                </label>
-                                <div class="mt-1 flex rounded-md shadow-sm">
-                                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                                      https://
-                                    </span>
-                                    <input type="text"
-                                           name="company_website"
-                                           id="company_website"
-                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                                           placeholder="caligulashorse.com">
-                                </div>
-                            </div>
+                            </div>-->
                         </div>
 
                         <!-- Bio -->
@@ -235,18 +207,22 @@
 
 <script>
 export default {
+    emits: ['band-created'],
     data() {
         return {
             bandsEndpoint: '/bands',
+            genresEndpoint: '/genres',
             countriesEndpoint: '/countries',
             bandForm: {
                 name: '',
-                playing_since_year: '',
+                started_at: '',
                 country: {},
                 genres: [],
                 city: '',
+                bio: '',
             },
             countries: [],
+            genres: [],
 
             loading: false,
         }
@@ -256,17 +232,18 @@ export default {
             this.loading = true;
             axios.post(this.bandsEndpoint, {
                 name: this.bandForm.name,
-                playing_since_year: this.bandForm.playing_since_year,
+                started_at: this.bandForm.started_at,
                 country_id: this.bandForm.country ? this.bandForm.country.id : null,
-                // genres: this.bandForm.genres,
-                // city: this.bandForm.city,
+                city: this.bandForm.city,
+                bio: this.bandForm.bio,
+                genres: this.bandForm.genres,
             }).then(response => {
-                    this.loading = false;
-                    Event.$emit('band-created', response.data);
-                }).catch(error => {
-                    console.log(error)
-                    this.loading = false;
-                })
+                Event.$emit('band-created', response.data);
+                this.loading = false;
+            }).catch(error => {
+                console.log(error)
+                this.loading = false;
+            })
         },
         getCountries() {
             axios.get(this.countriesEndpoint)
@@ -276,8 +253,17 @@ export default {
                     console.log(error)
                 })
         },
+        getGenres() {
+            axios.get(this.genresEndpoint)
+                .then(response => {
+                    this.genres = response.data.data;
+                }).catch(error => {
+                    console.log(error)
+                })
+        },
     },
     mounted() {
+        this.getGenres()
         this.getCountries()
     }
 }

@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     private array $seeders = [
         UserSeeder::class,
         CountrySeeder::class,
+        GenreSeeder::class,
     ];
     /**
      * Seed the application's database.

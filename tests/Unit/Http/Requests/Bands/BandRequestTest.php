@@ -100,7 +100,62 @@ class BandRequestTest extends TestCase
     {
         $validatedField = 'country_id';
         $brokenRule = 9999;
-        
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $this->make(Band::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrorFor($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function city_must_not_exceed_255_chars()
+    {
+        $validatedField = 'city';
+        $brokenRule = Str::random(256);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $this->make(Band::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrorFor($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function genres_is_required()
+    {
+        $validatedField = 'genres';
+        $brokenRule = [];
+
+        $request = $this->make(Band::class, [
+            $validatedField => $brokenRule
+        ])->toArray();
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            array_merge($request, [
+                'genres' => $brokenRule
+            ])
+        )->assertJsonValidationErrorFor($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function genres_must_exist_in_genres_table()
+    {
+        $validatedField = 'genres';
+        $brokenRule = [9999];
+
         $this->postJson(
             route($this->routePrefix . 'store'),
             $this->make(Band::class, [
