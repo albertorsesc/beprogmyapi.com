@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class BandResource extends JsonResource
 {
@@ -22,6 +23,7 @@ class BandResource extends JsonResource
             'country' => $this->whenLoaded('country'),
             'city' => $this->city,
             'bio' => $this->bio,
+            'image' => $this->image ? config('app.url') . $this->image : null,
         ];
     }
 }

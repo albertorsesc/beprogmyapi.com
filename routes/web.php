@@ -14,7 +14,6 @@
         'verified'
     ])->group(function () {
         Route::view('dashboard', 'dashboard')->name('dashboard');
-        Route::get('bands', [BandController::class, 'index'])->name('web.bands.index');
-        Route::get('bands/create', [BandController::class, 'create'])->name('web.bands.create');
-        Route::get('bands/show', [BandController::class, 'show'])->name('web.bands.show');
+        Route::get('bands', [BandController::class, 'index'])->name('bands.index');
+        Route::get('bands/{band}', [BandController::class, 'show'])->name('bands.show');
     });

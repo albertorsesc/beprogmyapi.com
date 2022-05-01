@@ -2,7 +2,7 @@
     <file-pond
         :instant-upload="false"
         :store-as-file="true"
-        label-idle="Drop files here..."
+        label-idle="Drop Band image or logo here..."
         accepted-file-types="image/jpeg, image/png"
         @addfile="onAddFile"
     />
@@ -23,12 +23,8 @@ const FilePond = vueFilePond(
 );
 
 export default {
-    props: ['data', 'onAddFile'],
-    data() {
-        return {
-            localData: this.data,
-        }
-    },
+    name: 'FileUploader',
+    props: ['onAddFile'],
     components: {
         FilePond,
     },

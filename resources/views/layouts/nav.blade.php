@@ -15,7 +15,7 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('web.bands.index') }}" :active="request()->routeIs('web.bands.index')">
+                    <x-jet-nav-link href="{{ route('bands.index') }}" :active="request()->routeIs('bands.index')">
                         Bands
                     </x-jet-nav-link>
                 </div>
@@ -143,6 +143,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('bands.index') }}" :active="request()->routeIs('bands.index')">
+                {{ __('Bands') }}
             </x-jet-responsive-nav-link>
         </div>
 
