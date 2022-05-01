@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\Bands;
 
-use App\Http\Resources\BandResource;
 use App\Models\Bands\Band;
+use App\Classes\ImageProcessor;
 use Illuminate\Http\JsonResponse;
+use App\Http\Resources\BandResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bands\BandRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class BandController extends Controller
     }
     public function store(BandRequest $request): JsonResponse
     {
-        $band = Band::create($request->all());
+        $band = Band::create($request->except('image'));
         $band->genres()->attach($request->genres);
 
         return response()->json([

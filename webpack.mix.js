@@ -7,6 +7,20 @@ mix.js('resources/js/app.js', 'public/js')
         require('autoprefixer'),
     ]).vue({ version: 2 });
 
+mix.extract([
+    'vue',
+    'tailwindcss',
+    'postcss',
+    'laravel-mix',
+    'lodash',
+    'alpine',
+    'filepond',
+    'vue-filepond',
+    'filepond-plugin-file-validate-type',
+    'filepond-plugin-image-preview',
+    'filepond-plugin-file-encode',
+])
+
 mix.browserSync({
     proxy: 'http://localhost:8000',
     open: false,
