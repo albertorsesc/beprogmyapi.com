@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Api\Bands;
 
 use App\Models\Bands\Band;
-use App\Classes\ImageProcessor;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\BandResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bands\BandRequest;
+use App\Http\Resources\Bands\BandResource;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class BandController extends Controller
 {
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return BandResource::collection(
             Band::query()
-                ->with(['genres', 'country'])
+                ->with(['creator', 'genres', 'country'])
                 ->orderBy('name')
                 ->get()
         );
@@ -27,7 +27,7 @@ class BandController extends Controller
         $band->genres()->attach($request->genres);
 
         return response()->json([
-            'data' => $band
+            'data' => new BandResource($band),
         ], Response::HTTP_CREATED);
     }
 }

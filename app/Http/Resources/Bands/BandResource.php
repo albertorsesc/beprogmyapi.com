@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Bands;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
+use function config;
 
 class BandResource extends JsonResource
 {
@@ -19,11 +19,13 @@ class BandResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'start_at' => $this->start_at,
+            'creator' => $this->whenLoaded('creator'),
             'genres' => $this->whenLoaded('genres'),
             'country' => $this->whenLoaded('country'),
             'city' => $this->city,
             'bio' => $this->bio,
             'image' => $this->image ? config('app.url') . $this->image : null,
+            'albums' => AlbumResource::collection($this->whenLoaded('albums')),
         ];
     }
 }

@@ -3,12 +3,10 @@
 namespace App\Models\Bands;
 
 use App\Classes\ImageProcessor;
-use App\Models\Genre;
-use App\Models\Country;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\{User, Genre, Country};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany, HasMany};
 
 class Band extends Model
 {
@@ -21,6 +19,7 @@ class Band extends Model
     {
         parent::boot();
         static::creating(function ($band) {
+            $band->creator_id = auth()->id();
             if (request()->filled('image')) {
                 $band->image = ImageProcessor::process(
                     'public/bands',
@@ -31,6 +30,16 @@ class Band extends Model
     }
 
     /* Relations */
+
+    public function albums() : HasMany
+    {
+        return $this->hasMany(Album::class);
+    }
+
+    public function creator() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
 
     public function genres() : BelongsToMany
     {

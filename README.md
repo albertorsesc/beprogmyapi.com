@@ -12,10 +12,10 @@
 * [x] Get all Bands
 * [x] Get all Genres
 * [x] Create a Band
-* [] Get all Albums
+* [x] Add Album to Band
+* [x] Get all Albums
 * [] Get all Songs from an Album
 * [] Add Members to a Band
-* [] Add Album to Band
 * [] Add Song to an Album
 * [] Create a Genre
 * [] Create a Profile

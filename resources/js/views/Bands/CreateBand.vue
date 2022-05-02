@@ -109,20 +109,20 @@
                             </div>
 
                             <!-- OfficialSite -->
-<!--                            <div class="col-span-3 sm:col-span-2">
-                                <label for="company_website" class="block text-sm font-medium text-gray-700">
-                                    Official Site
-                                </label>
-                                <div class="mt-1 flex rounded-md shadow-sm">
-                                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                                      https://
-                                    </span>
-                                    <input type="text"
-                                           name="company_website"
-                                           class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                                           placeholder="caligulashorse.com">
-                                </div>
-                            </div>-->
+                            <!--                            <div class="col-span-3 sm:col-span-2">
+                                                            <label for="company_website" class="block text-sm font-medium text-gray-700">
+                                                                Official Site
+                                                            </label>
+                                                            <div class="mt-1 flex rounded-md shadow-sm">
+                                                                <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                                                  https://
+                                                                </span>
+                                                                <input type="text"
+                                                                       name="company_website"
+                                                                       class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                                                                       placeholder="caligulashorse.com">
+                                                            </div>
+                                                        </div>-->
                         </div>
 
                         <!-- Bio -->
@@ -228,13 +228,13 @@ export default {
                 genres: this.bandForm.genres,
                 image: this.bandForm.image,
             }).then(response => {
-                Event.$emit('band-created', response.data);
-                this.loading = false;
+                Event.$emit('band-created', response.data.data);
             }).catch(error => {
                 this.errors = error.response.status === 422 ?
                     error.response.data.errors : []
                 console.log(error)
-                this.loading = false;
+            }).finally(() => {
+                this.isLoading = false
             })
         },
         getCountries() {
@@ -242,16 +242,16 @@ export default {
                 .then(response => {
                     this.countries = response.data.data;
                 }).catch(error => {
-                    console.log(error)
-                })
+                console.log(error)
+            })
         },
         getGenres() {
             axios.get(this.genresEndpoint)
                 .then(response => {
                     this.genres = response.data.data;
                 }).catch(error => {
-                    console.log(error)
-                })
+                console.log(error)
+            })
         },
         onAddFile(error, file) {
             if (error) {

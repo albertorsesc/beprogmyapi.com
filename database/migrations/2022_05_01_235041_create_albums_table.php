@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bands', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->year('started_at')->nullable();
             $table->foreignId('creator_id')->constrained('users');
-            $table->foreignId('country_id')->constrained();
-            $table->string('city', 255)->nullable();
-            $table->longText('bio')->nullable();
+            $table->foreignId('band_id')->constrained();
+            $table->string('title', 255);
+            $table->year('released_at')->nullable();
+            $table->string('record_label', 255)->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bands');
+        Schema::dropIfExists('albums');
     }
 };

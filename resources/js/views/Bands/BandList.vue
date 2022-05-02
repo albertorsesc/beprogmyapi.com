@@ -10,7 +10,7 @@
                      :alt="band.name + ' image'">
                 <img v-else
                      class="w-36 h-36 object-cover mx-auto bg-black rounded-full"
-                     src="https://images.unsplash.com/photo-1511220043390-e929fe0edf55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                     src="https://images.unsplash.com/photo-1511220043390-e929fe0edf55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1w YWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
                      alt="placeholder image">
                 <h3 class="mt-6 text-gray-900 text-sm font-medium" v-text="band.name"></h3>
                 <dl class="mt-1 flex-grow flex flex-col justify-between">

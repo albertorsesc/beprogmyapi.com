@@ -7,6 +7,7 @@ import Vue from 'vue/dist/vue'
 window.Event = new Vue()
 
 Vue.component('bands', require('./views/Bands/Bands').default);
+Vue.component('create-band', require('./views/Bands/CreateBand').default);
 Vue.component('band-profile', require('./views/Bands/BandProfile').default);
 
 const app = new Vue({

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Web\Bands;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BandResource;
+use App\Http\Resources\Bands\BandResource;
 use App\Models\Bands\Band;
-use Illuminate\Http\Request;
 
 class BandController extends Controller
 {
@@ -18,7 +17,7 @@ class BandController extends Controller
     {
         return view('bands.show', [
             'band' => new BandResource(
-                $band->load(['country', 'genres'])
+                $band->load(['creator', 'country', 'genres', 'albums'])
             ),
         ]);
     }

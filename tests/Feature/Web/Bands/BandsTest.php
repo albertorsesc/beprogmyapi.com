@@ -25,6 +25,8 @@ class BandsTest extends TestCase
     */
     public function authenticated_user_can_visit_a_bands_profile()
     {
+        $this->signIn();
+
         $band = $this->create(Band::class);
         $genres = $this->create(Genre::class, [], 2)->pluck('id');
         $band->genres()->attach($genres);

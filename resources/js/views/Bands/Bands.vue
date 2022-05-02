@@ -30,7 +30,7 @@
                         <button type="button"
                                 v-if="bandTab === 'bands.index'"
                                 @click="switchTab('bands.create')"
-                                class="ml-3 inline-flex justify-center items-center py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-greenlight hover:bg-greendark hover:font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition">
+                                class="ml-3 btn-primary text-sm">
                             New Band
                         </button>
                         <button type="button"

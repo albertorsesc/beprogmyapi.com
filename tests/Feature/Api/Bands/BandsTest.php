@@ -3,13 +3,12 @@
 namespace Tests\Feature\Api\Bands;
 
 use App\Models\Genre;
-use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
+use Tests\BandTestCase;
 use App\Models\Bands\Band;
-use Database\Seeders\CountrySeeder;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class BandsTest extends TestCase
+class BandsTest extends BandTestCase
 {
     use RefreshDatabase;
 
@@ -18,7 +17,6 @@ class BandsTest extends TestCase
     protected function setUp () : void
     {
         parent::setUp();
-        $this->loadSeeders([CountrySeeder::class]);
         $this->signIn();
     }
 
@@ -28,7 +26,6 @@ class BandsTest extends TestCase
      */
     public function authenticated_user_can_get_all_bands()
     {
-        $this->withoutExceptionHandling();
         $band = $this->create(Band::class);
         $genres = $this->create(Genre::class, [], 2);
         $band->genres()->attach($genres->pluck('id'));
@@ -44,6 +41,7 @@ class BandsTest extends TestCase
                         ['id' => $genres->find(1)->id],
                         ['id' => $genres->find(2)->id],
                     ],
+                    'creator' => ['id' => $band->creator->id],
                     'country' => ['id' => $band->country->id],
                     'city' => $band->city,
                     'bio' => $band->bio,
@@ -58,7 +56,7 @@ class BandsTest extends TestCase
      */
     public function authenticated_user_can_store_a_band()
     {
-        $band = $this->make(Band::class);
+        $band = $this->make(Band::class, ['creator_id' => auth()->id()]);
         [$genre1, $genre2] = $this->create(Genre::class, [], 2);
         $genres = ['genres' => [$genre1->id, $genre2->id]];
 
@@ -71,7 +69,10 @@ class BandsTest extends TestCase
             'data' => ['name' => $band->name]
         ]);
 
-        $this->assertDatabaseHas('bands', $band->toArray());
+        $this->assertDatabaseHas(
+            'bands',
+            $band->toArray() + ['creator_id' => auth()->id()]
+        );
 
         $newBand = Band::first();
         foreach ($genres as $genre) {
