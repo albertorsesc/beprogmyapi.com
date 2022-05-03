@@ -70,11 +70,13 @@
                                                         <img v-if="album.image"
                                                              class="h-24 w-24 rounded-full ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
                                                              :src="album.image"
-                                                             :alt="album.title + ' image'">
+                                                             :alt="album.title + ' image'"
+                                                             loading="lazy">
                                                         <img v-else
                                                              class="h-24 w-24 rounded-full ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
                                                              src="https://images.unsplash.com/photo-1511220043390-e929fe0edf55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                                                             alt="placeholder image">
+                                                             alt="placeholder image"
+                                                             loading="lazy">
                                                     </div>
                                                     <div class="sm:hidden 2xl:block min-w-0 flex-1 mt-0 top-0">
                                                         <h1 v-text="album.title" class="underline text-3xl font-bold text-greenlight truncate"></h1>
@@ -104,7 +106,8 @@
                                                             <div class="flex-shrink-0">
                                                                 <img class="h-10 w-10 rounded-full"
                                                                      :src="album.creator.profile_photo_url"
-                                                                     :alt="album.creator.name">
+                                                                     :alt="album.creator.name"
+                                                                     loading="lazy">
                                                             </div>
                                                             <div class="flex-1 min-w-0">
                                                                 <a href="#" class="focus:outline-none">
@@ -226,7 +229,7 @@
                                                 <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""  loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">
@@ -243,7 +246,7 @@
 
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">
@@ -260,7 +263,7 @@
 
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">
@@ -277,7 +280,7 @@
 
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">

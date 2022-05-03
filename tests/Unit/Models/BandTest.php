@@ -5,7 +5,7 @@ namespace Tests\Unit\Models;
 use Tests\TestCase;
 use App\Models\Bands\{Band, Album};
 use Database\Seeders\CountrySeeder;
-use App\Models\{User, Genre, Country};
+use App\Models\{Link, User, Genre, Country};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BandTest extends TestCase
@@ -70,5 +70,20 @@ class BandTest extends TestCase
         $band = $this->create(Band::class);
 
         $this->assertInstanceOf(Country::class, $band->country);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function band_has_many_links()
+    {
+        $this->fakeEvent();
+        $band = $this->create(Band::class);
+        $link = $this->make(Link::class);
+
+        $band->links()->create($link->toArray());
+
+        $this->assertInstanceOf(Link::class, $band->fresh()->links->first());
     }
 }

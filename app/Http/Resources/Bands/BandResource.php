@@ -26,6 +26,7 @@ class BandResource extends JsonResource
             'bio' => $this->bio,
             'image' => $this->image ? config('app.url') . $this->image : null,
             'albums' => AlbumResource::collection($this->whenLoaded('albums')),
+            'links' => $this->whenLoaded('links'),
         ];
     }
 }

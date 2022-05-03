@@ -25,7 +25,7 @@
 
         @include('layouts.nav')
 
-        <div id="app">
+        <div id="app" v-cloak>
             @yield('content')
         </div>
 

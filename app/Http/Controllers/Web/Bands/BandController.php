@@ -17,7 +17,7 @@ class BandController extends Controller
     {
         return view('bands.show', [
             'band' => new BandResource(
-                $band->load(['creator', 'country', 'genres', 'albums'])
+                $band->load(['creator', 'country', 'genres', 'albums', 'links'])
             ),
         ]);
     }

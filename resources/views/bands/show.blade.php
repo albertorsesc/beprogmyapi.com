@@ -62,11 +62,13 @@
                                                         <img v-if="band.image"
                                                              class="h-24 w-24 rounded-full ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
                                                              :src="band.image"
-                                                             :alt="band.name + ' image'">
+                                                             :alt="band.name + ' image'"
+                                                             loading="lazy">
                                                         <img v-else
                                                              class="h-24 w-24 rounded-full ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
                                                              src="https://images.unsplash.com/photo-1511220043390-e929fe0edf55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                                                             alt="placeholder image">
+                                                             alt="placeholder image"
+                                                             loading="lazy">
                                                     </div>
                                                     <div class="sm:hidden 2xl:block min-w-0 flex-1 mt-0 top-0">
                                                         <h1 v-text="band.name" class="underline text-3xl font-bold text-greenlight truncate"></h1>
@@ -96,7 +98,8 @@
                                                             <div class="flex-shrink-0">
                                                                 <img class="h-10 w-10 rounded-full"
                                                                      :src="band.creator.profile_photo_url"
-                                                                     :alt="band.creator.name">
+                                                                     :alt="band.creator.name"
+                                                                     loading="lazy">
                                                             </div>
                                                             <div class="flex-1 min-w-0">
                                                                 <a href="#" class="focus:outline-none">
@@ -189,15 +192,62 @@
                                                         </dd>
                                                     </div>
 
-                                                    {{--Official Site--}}
-                                                    <div v-if="false" class="sm:col-span-1">
-                                                        <dt class="text-base font-medium text-gray-500">
-                                                            Official Site
+                                                    {{--Links--}}
+                                                    <div class="sm:col-span-2">
+                                                        <dt v-if="linksTab === 'links'"
+                                                            class="text-base font-medium text-gray-500">
+                                                            <a href="#"
+                                                               @click="linksTab = 'add-link'"
+                                                               class="text-sm text-gray-500 hover:text-gray-600 hover:underline transition"
+                                                            >Add link</a>
                                                         </dt>
-                                                        <dd class="mt-1 text-base text-gray-900">
-                                                            <a href="https://caligulashorse.com/" class="hover:underline hover:text-gray-600">
-                                                                https://caligulashorse.com/
-                                                            </a>
+                                                        <dd v-if="linksTab === 'add-link'" class="mt-2 flex text-base text-gray-900 items-center">
+                                                            <div class="w-1/4 mr-2">
+                                                                <input type="text"
+                                                                       v-model="linkForm.name"
+                                                                       id="name"
+                                                                       autocomplete="name"
+                                                                       required
+                                                                       class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                                       placeholder="Official Site...">
+                                                                <p v-if="errors.name" v-text="errors.name[0]" class="text-red-500"></p>
+                                                            </div>
+                                                            <div class="w-1/3 mr-2">
+                                                                <input type="text"
+                                                                       v-model="linkForm.url"
+                                                                       id="url"
+                                                                       autocomplete="url"
+                                                                       class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                                       placeholder="https://band.com">
+                                                                <p v-if="errors.url" v-text="errors.url[0]" class="text-red-500"></p>
+                                                            </div>
+                                                            <div class="w-1/3 mr-2 flex">
+                                                                <svg @click="storeLink"
+                                                                     tabindex="0"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                     :class="[errors ? 'mb-1' : '']"
+                                                                     class="cursor-pointer text-base text-gray-300 font-light hover:text-green-300 hover:font-medium h-8 w-8 border-none focus:text-green-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                                <svg @click="cancelLink"
+                                                                     tabindex="0"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                     :class="[errors.length > 0 ? 'mb-1' : '']"
+                                                                     class="cursor-pointer text-base text-gray-300 font-light hover:text-gray-400 hover:font-medium h-8 w-8 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                            </div>
+                                                        </dd>
+                                                        <dd v-else class="mt-2 w-1/3">
+                                                            <ul class="flex flex-wrap">
+                                                                <li v-for="link in localBand.links" class="w-1/3 mt-1">
+                                                                    <a :href="link.url"
+                                                                       v-text="link.name"
+                                                                       class="hover:underline text-greenlight hover:text-gray-600 underline"
+                                                                       target="_blank">
+                                                                    ></a>
+                                                                </li>
+                                                            </ul>
                                                         </dd>
                                                     </div>
 
@@ -218,7 +268,7 @@
                                                 <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">
@@ -235,7 +285,7 @@
 
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">
@@ -252,7 +302,7 @@
 
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">
@@ -269,7 +319,7 @@
 
                                                     <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
                                                         <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <a href="#" class="focus:outline-none">

@@ -3,13 +3,14 @@
 namespace App\Models\Bands;
 
 use App\Classes\ImageProcessor;
-use App\Models\{User, Genre, Country};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\{Concerns\HasLinks, User, Genre, Country};
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany, HasMany};
 
 class Band extends Model
 {
+    use HasLinks;
     use HasFactory;
 
     protected $casts = ['started_at' => 'date:Y'];
