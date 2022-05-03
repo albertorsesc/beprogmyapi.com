@@ -24,7 +24,7 @@
                         <span v-for="(genre, index) in band.genres"
                               :key="genre.id"
                               v-if="index <= 1"
-                              v-text="genre.name"
+                              v-text="limitString(genre.name, 18)"
                               class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full"
                         ></span>
                     </dd>

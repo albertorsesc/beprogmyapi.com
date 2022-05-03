@@ -41,17 +41,21 @@
 #### JSON Schema
 
 **GET** - `/api/bands`
+
 ```json
 {
     "data": [
         {
             "id": 1,
             "name": "Caligula's Horse",
+            "started_at": 2011,
             "country": {
                 "id": 1,
                 "name": "Australia",
                 "code": "AU"
             },
+            "city": "Brisbane",
+            "bio": "Caligula’s Horse, hailing from Brisbane, Australia, are a leading light in contemporary progressive metal. Their colourful and emotional music...",
             "genres": [
                 {
                     "id": 1,
@@ -60,6 +64,15 @@
                 {
                     "id": 2,
                     "name": "Progressive Metal"
+                }
+            ],
+            "albums": [
+                {
+                    "id": 1,
+                    "title": "In Contact",
+                    "released_at": 2017,
+                    "record_label": "Inside Out Music",
+                    "image": "https://beprogmyapi.com/albums/in_contact.jpg"
                 }
             ]
         }
