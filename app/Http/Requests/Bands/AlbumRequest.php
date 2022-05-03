@@ -25,8 +25,8 @@ class AlbumRequest extends FormRequest
     {
         return [
             'title' => ['required', 'max:255'],
-            'released_at' => ['integer'],
-            'record_label' => ['max:255']
+            'released_at' => ['integer', 'nullable'],
+            'record_label' => ['max:255'],
         ];
     }
 }

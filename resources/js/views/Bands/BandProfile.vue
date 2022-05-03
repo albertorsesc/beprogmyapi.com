@@ -49,6 +49,11 @@ export default {
             this.bandTab = tab;
         }
     },
+    mounted() {
+        Event.$on('album-created', album => {
+            this.localBand.albums.push(album)
+        });
+    },
     components: {
         Albums: () => import(/* webpackChunkName: "albums" */ './Albums/Albums'),
     }

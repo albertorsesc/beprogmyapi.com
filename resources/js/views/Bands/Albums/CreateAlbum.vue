@@ -50,7 +50,8 @@
 
         <!--AlbumImage-->
         <div class="sm:col-span-4">
-            <file-uploader :on-add-file="onAddFile"/>
+            <file-uploader :on-add-file="onAddFile" :is-required="true"/>
+            <p v-if="errors.image" v-text="errors.image[0]" class="text-red-500"></p>
         </div>
 
         <!--Save-->

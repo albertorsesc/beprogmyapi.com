@@ -28,7 +28,10 @@ class AlbumsTest extends BandTestCase
 
         $response = $this->postJson(
             route('api.bands.albums.store', $band),
-            Arr::except($album->toArray(), 'creator_id')
+            Arr::except(
+                $album->toArray(),
+                'creator_id'
+            )
         );
         $response->assertCreated();
         $response->assertJson(['data' => ['title' => $album->title]]);
