@@ -33,12 +33,6 @@
 
 [//]: # (|  Bands         | GET           | /api/bands    | Get all Bands |)
 
-[//]: # (|  Albums         | GET           | /api/albums    | Get all Albums |)
-
-[//]: # (|  Songs         | GET           | /api/albums/{album}/songs    | Get all Songs from an Album |)
-
-[//]: # (|  Genres         | GET           | /api/genres    | Get all Genres |)
-
 #### JSON Schema
 
 **GET** - `/api/bands`
@@ -74,6 +68,13 @@
                     "released_at": 2017,
                     "record_label": "Inside Out Music",
                     "image": "https://beprogmyapi.com/albums/in_contact.jpg"
+                }
+            ],
+            "links": [
+                {
+                    "id": 1,
+                    "name": "Official Site",
+                    "url": "https://caligulashorse.com"
                 }
             ]
         }
