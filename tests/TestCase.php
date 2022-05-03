@@ -52,8 +52,11 @@ abstract class TestCase extends BaseTestCase
      *
      * @return mixed
      */
-    public function make($class, array $attributes = [])
+    public function make($class, array $attributes = [], int $count = 1)
     {
+        if ($count > 1) {
+            return $class::factory()->count($count)->make($attributes);
+        }
         return $class::factory()->make($attributes);
     }
 

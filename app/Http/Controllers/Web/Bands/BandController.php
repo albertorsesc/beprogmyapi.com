@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Web\Bands;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\Bands\BandResource;
+use App\Models\Bands\Band;
 
 class BandController extends Controller
 {
@@ -12,13 +13,12 @@ class BandController extends Controller
         return view('bands.index');
     }
 
-    public function create()
+    public function show(Band $band)
     {
-        return view('bands.create');
-    }
-
-    public function show()
-    {
-        return view('bands.show');
+        return view('bands.show', [
+            'band' => new BandResource(
+                $band->load(['creator', 'country', 'genres', 'albums', 'links'])
+            ),
+        ]);
     }
 }

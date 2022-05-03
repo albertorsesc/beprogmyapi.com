@@ -8,14 +8,15 @@
 
 #### Roadmap
 
-* [] Register/Login
-* [] Get all Bands
-* [] Get all Albums
+* [x] Register/Login
+* [x] Get all Bands
+* [x] Get all Genres
+* [x] Create a Band
+* [x] Add Album to Band
+* [x] Get all Albums
+* [x] Add Links to a Band
 * [] Get all Songs from an Album
-* [] Get all Genres
-* [] Create a Band
 * [] Add Members to a Band
-* [] Add Album to Band
 * [] Add Song to an Album
 * [] Create a Genre
 * [] Create a Profile
@@ -32,26 +33,24 @@
 
 [//]: # (|  Bands         | GET           | /api/bands    | Get all Bands |)
 
-[//]: # (|  Albums         | GET           | /api/albums    | Get all Albums |)
-
-[//]: # (|  Songs         | GET           | /api/albums/{album}/songs    | Get all Songs from an Album |)
-
-[//]: # (|  Genres         | GET           | /api/genres    | Get all Genres |)
-
 #### JSON Schema
 
 **GET** - `/api/bands`
+
 ```json
 {
     "data": [
         {
             "id": 1,
             "name": "Caligula's Horse",
+            "started_at": 2011,
             "country": {
                 "id": 1,
                 "name": "Australia",
                 "code": "AU"
             },
+            "city": "Brisbane",
+            "bio": "Caligula’s Horse, hailing from Brisbane, Australia, are a leading light in contemporary progressive metal. Their colourful and emotional music...",
             "genres": [
                 {
                     "id": 1,
@@ -60,6 +59,22 @@
                 {
                     "id": 2,
                     "name": "Progressive Metal"
+                }
+            ],
+            "albums": [
+                {
+                    "id": 1,
+                    "title": "In Contact",
+                    "released_at": 2017,
+                    "record_label": "Inside Out Music",
+                    "image": "https://beprogmyapi.com/albums/in_contact.jpg"
+                }
+            ],
+            "links": [
+                {
+                    "id": 1,
+                    "name": "Official Site",
+                    "url": "https://caligulashorse.com"
                 }
             ]
         }

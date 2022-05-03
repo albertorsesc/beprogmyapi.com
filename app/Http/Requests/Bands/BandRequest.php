@@ -25,6 +25,9 @@
         {
             return [
                 'name' => ['required', 'max:255', 'unique:bands,name'],// . $this->route('band')->id
+                'country_id' => ['required', 'exists:countries,id'],
+                'genres' => ['required', 'array', 'exists:genres,id'],
+                'city' => ['max:255'],
             ];
         }
     }

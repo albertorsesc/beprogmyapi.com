@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\SubscriptionController;
+    use App\Http\Controllers\Web\Bands\Albums\AlbumController;
     use App\Http\Controllers\Web\Bands\BandController;
     use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,7 @@
         'verified'
     ])->group(function () {
         Route::view('dashboard', 'dashboard')->name('dashboard');
-        Route::get('bands', [BandController::class, 'index'])->name('web.bands.index');
-        Route::get('bands/create', [BandController::class, 'create'])->name('web.bands.create');
-        Route::get('bands/show', [BandController::class, 'show'])->name('web.bands.show');
+        Route::get('bands', [BandController::class, 'index'])->name('bands.index');
+        Route::get('bands/{band}', [BandController::class, 'show'])->name('bands.show');
+        Route::get('bands/{band}/albums/{album}', [AlbumController::class, 'show'])->name('bands.albums.show');
     });
