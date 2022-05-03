@@ -14,6 +14,7 @@
 * [x] Create a Band
 * [x] Add Album to Band
 * [x] Get all Albums
+* [x] Add Links to a Band
 * [] Get all Songs from an Album
 * [] Add Members to a Band
 * [] Add Song to an Album
