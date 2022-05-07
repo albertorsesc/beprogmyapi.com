@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Bands;
 
+use App\Http\Resources\RecognitionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use function config;
 
@@ -18,7 +19,7 @@ class BandResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'start_at' => $this->start_at,
+            'started_at' => $this->started_at,
             'creator' => $this->whenLoaded('creator'),
             'genres' => $this->whenLoaded('genres'),
             'country' => $this->whenLoaded('country'),
@@ -27,6 +28,7 @@ class BandResource extends JsonResource
             'image' => $this->image ? config('app.url') . $this->image : null,
             'albums' => AlbumResource::collection($this->whenLoaded('albums')),
             'links' => $this->whenLoaded('links'),
+            'recognitions' => RecognitionResource::collection($this->whenLoaded('recognitions')),
         ];
     }
 }

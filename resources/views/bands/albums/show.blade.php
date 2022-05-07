@@ -68,12 +68,12 @@
                                                 <div class="sm:flex sm:items-end sm:space-x-5 relative">
                                                     <div class="flex">
                                                         <img v-if="album.image"
-                                                             class="h-24 w-24 rounded-full ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
+                                                             class="h-24 w-24 rounded-lg ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
                                                              :src="album.image"
                                                              :alt="album.title + ' image'"
                                                              loading="lazy">
                                                         <img v-else
-                                                             class="h-24 w-24 rounded-full ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
+                                                             class="h-24 w-24 rounded-lg ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
                                                              src="https://images.unsplash.com/photo-1511220043390-e929fe0edf55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
                                                              alt="placeholder image"
                                                              loading="lazy">
@@ -142,7 +142,7 @@
                                                             ]"
                                                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                                                            aria-current="page">
-                                                            Profile
+                                                            Description
                                                         </a>
                                                         <a @click="switchTab('albums')"
                                                            href="#"
@@ -153,7 +153,7 @@
                                                             ]"
                                                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                                                         >
-                                                            Albums
+                                                            Songs & Lyrics
                                                         </a>
                                                         <a @click="switchTab('recognition')"
                                                            href="#"

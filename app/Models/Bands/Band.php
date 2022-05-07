@@ -3,15 +3,18 @@
 namespace App\Models\Bands;
 
 use App\Classes\ImageProcessor;
+use App\Models\{User, Genre, Country};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\{Concerns\HasLinks, User, Genre, Country};
+use App\Models\Concerns\{HasLinks, GrantsRecognition, SerializeTimestamps};
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany, HasMany};
 
 class Band extends Model
 {
     use HasLinks;
     use HasFactory;
+    use GrantsRecognition;
+    use SerializeTimestamps;
 
     protected $casts = ['started_at' => 'date:Y'];
     protected $fillable = ['name', 'started_at', 'country_id', 'city', 'bio', 'image'];
