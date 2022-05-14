@@ -38,7 +38,10 @@
                                         <svg class="flex-shrink-0 w-6 h-full text-gray-200" viewBox="0 0 24 44" preserveAspectRatio="none" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                                         </svg>
-                                        <a href="/bands" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Bands</a>
+                                        <a :href="`/bands/${album.band.id}`"
+                                           v-text="album.band.name"
+                                           class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+                                        ></a>
                                     </div>
                                 </li>
                                 <li class="flex">
@@ -46,7 +49,9 @@
                                         <svg class="flex-shrink-0 w-6 h-full text-gray-200" viewBox="0 0 24 44" preserveAspectRatio="none" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                                         </svg>
-                                        <span v-text="album.title" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"></span>
+                                        <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
+                                            Album: @{{ album.title }}
+                                        </span>
                                     </div>
                                 </li>
                             </ol>
@@ -100,24 +105,6 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    {{--Creator--}}
-                                                    <div class="absolute flex justify-end items-end inset-x-0 top-0">
-                                                        <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-yellow-500">
-                                                            <div class="flex-shrink-0">
-                                                                <img class="h-10 w-10 rounded-full"
-                                                                     :src="album.creator.profile_photo_url"
-                                                                     :alt="album.creator.name"
-                                                                     loading="lazy">
-                                                            </div>
-                                                            <div class="flex-1 min-w-0">
-                                                                <a href="#" class="focus:outline-none">
-                                                                    <span class="absolute inset-0" aria-hidden="true"></span>
-                                                                    <p v-text="album.creator.name" class="text-sm font-medium text-gray-900"></p>
-                                                                    <p class="text-sm text-gray-500 truncate">Album Profile Creator</p>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
                                                     <h1 class="text-2xl font-bold text-gray-900 truncate">
@@ -132,7 +119,6 @@
                                             <div class="border-b border-gray-200">
                                                 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                                                     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                                                        <!-- Current: "border-pink-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
                                                         <a @click="switchTab('profile')"
                                                            href="#"
                                                            :class="[
@@ -144,7 +130,7 @@
                                                            aria-current="page">
                                                             Description
                                                         </a>
-                                                        <a @click="switchTab('albums')"
+<!--                                                        <a @click="switchTab('albums')"
                                                            href="#"
                                                            :class="[
                                                             albumTab === 'albums' ?
@@ -154,11 +140,11 @@
                                                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                                                         >
                                                             Songs & Lyrics
-                                                        </a>
-                                                        <a @click="switchTab('recognition')"
+                                                        </a>-->
+                                                        <a @click="switchTab('recognitions')"
                                                            href="#"
                                                            :class="[
-                                                            albumTab === 'recognition' ?
+                                                            albumTab === 'recognitions' ?
                                                                 'border-pink-500 text-gray-900 ' :
                                                                 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                                                             ]"
@@ -175,130 +161,52 @@
                                             <!-- Description list -->
                                             <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                                                 <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                                                    {{--Genres--}}
-                                                    <div class="sm:col-span-1">
+                                                    {{--ReleasedAt--}}
+                                                    <div v-if="album.released_at" class="sm:col-span-1">
                                                         <dt class="text-base font-medium text-gray-500">
-                                                            Genres
-                                                        </dt>
-                                                        <div class="flex flex-wrap items-center">
-                                                        <span v-for="genre in album.genres"
-                                                              :key="genre.id"
-                                                              v-text="genre.name"
-                                                              class="w-full lg:w-1/3 mr-4 text-center bg-green-200 py-1 px-2 rounded-full shadow-sm mt-4 text-sm text-green-900 font-semibold"
-                                                        ></span>
-                                                        </div>
-                                                    </div>
-
-                                                    {{--Origin--}}
-                                                    <div class="sm:col-span-1">
-                                                        <dt class="text-base font-medium text-gray-500">
-                                                            Origin
+                                                            Release Year
                                                         </dt>
                                                         <dd class="mt-1 text-base text-gray-900">
-                                                            <span v-if="album.city">@{{ album.city }}, </span>
-                                                            @{{ album.country.name }}
+                                                            @{{ album.released_at }}
                                                         </dd>
                                                     </div>
 
-                                                    {{--Official Site--}}
-                                                    <div v-if="false" class="sm:col-span-1">
+                                                    {{--RecordLabel--}}
+                                                    <div v-if="album.record_label" class="sm:col-span-1">
                                                         <dt class="text-base font-medium text-gray-500">
-                                                            Official Site
+                                                            Record Label
                                                         </dt>
                                                         <dd class="mt-1 text-base text-gray-900">
-                                                            <a href="https://caligulashorse.com/" class="hover:underline hover:text-gray-600">
-                                                                https://caligulashorse.com/
-                                                            </a>
+                                                            @{{ album.record_label }}
+                                                        </dd>
+                                                    </div>
+
+                                                    {{--PurchaseLink--}}
+                                                    <div v-if="album.purchase_link" class="sm:col-span-1">
+                                                        <dt class="text-base font-medium text-gray-500">
+                                                            Purchase Link
+                                                        </dt>
+                                                        <dd class="mt-1 text-base text-gray-900">
+                                                            <a :href="album.purchase_link"
+                                                               v-text="album.purchase_link"
+                                                               class="hover:underline hover:text-gray-600"
+                                                               target="_blank"
+                                                            ></a>
                                                         </dd>
                                                     </div>
 
                                                     {{--About--}}
-                                                    <div v-if="album.bio" class="sm:col-span-2">
+                                                    <div v-if="album.description" class="sm:col-span-2">
                                                         <dt class="text-base font-medium text-gray-500">
-                                                            About
+                                                            Description
                                                         </dt>
                                                         <dd class="mt-1 text-lg font-medium text-gray-900 text-justify">
-                                                            <p v-text="album.bio"></p>
+                                                            <p v-text="album.description"></p>
                                                         </dd>
                                                     </div>
                                                 </dl>
                                             </div>
-
-                                            <div v-if="false" class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
-                                                <h2 class="text-sm font-medium text-gray-500">Team members</h2>
-                                                <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                                    <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                                                        <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""  loading="lazy">
-                                                        </div>
-                                                        <div class="flex-1 min-w-0">
-                                                            <a href="#" class="focus:outline-none">
-                                                                <span class="absolute inset-0" aria-hidden="true"></span>
-                                                                <p class="text-sm font-medium text-gray-900">
-                                                                    Leslie Alexander
-                                                                </p>
-                                                                <p class="text-sm text-gray-500 truncate">
-                                                                    Co-Founder / CEO
-                                                                </p>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                                                        <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
-                                                        </div>
-                                                        <div class="flex-1 min-w-0">
-                                                            <a href="#" class="focus:outline-none">
-                                                                <span class="absolute inset-0" aria-hidden="true"></span>
-                                                                <p class="text-sm font-medium text-gray-900">
-                                                                    Michael Foster
-                                                                </p>
-                                                                <p class="text-sm text-gray-500 truncate">
-                                                                    Co-Founder / CTO
-                                                                </p>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                                                        <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
-                                                        </div>
-                                                        <div class="flex-1 min-w-0">
-                                                            <a href="#" class="focus:outline-none">
-                                                                <span class="absolute inset-0" aria-hidden="true"></span>
-                                                                <p class="text-sm font-medium text-gray-900">
-                                                                    Dries Vincent
-                                                                </p>
-                                                                <p class="text-sm text-gray-500 truncate">
-                                                                    Manager, Business Relations
-                                                                </p>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                                                        <div class="flex-shrink-0">
-                                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixqx=lGv4MS7e6O&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" loading="lazy">
-                                                        </div>
-                                                        <div class="flex-1 min-w-0">
-                                                            <a href="#" class="focus:outline-none">
-                                                                <span class="absolute inset-0" aria-hidden="true"></span>
-                                                                <p class="text-sm font-medium text-gray-900">
-                                                                    Lindsay Walton
-                                                                </p>
-                                                                <p class="text-sm text-gray-500 truncate">
-                                                                    Front-end Developer
-                                                                </p>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-
-                                        <albums v-if="albumTab === 'albums'" :album="album"></albums>
                                     </article>
                                 </main>
                             </div>

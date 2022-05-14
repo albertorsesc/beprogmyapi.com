@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('title', 255);
             $table->year('released_at')->nullable();
             $table->string('record_label', 255)->nullable();
+            $table->string('purchase_link', 255)->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

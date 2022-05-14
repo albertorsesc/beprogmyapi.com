@@ -92,24 +92,6 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    {{--Creator--}}
-                                                    <div class="absolute flex justify-end items-end inset-x-0 top-0">
-                                                        <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-yellow-500">
-                                                            <div class="flex-shrink-0">
-                                                                <img class="h-10 w-10 rounded-full"
-                                                                     :src="band.creator.profile_photo_url"
-                                                                     :alt="band.creator.name"
-                                                                     loading="lazy">
-                                                            </div>
-                                                            <div class="flex-1 min-w-0">
-                                                                <a href="#" class="focus:outline-none">
-                                                                    <span class="absolute inset-0" aria-hidden="true"></span>
-                                                                    <p v-text="band.creator.name" class="text-sm font-medium text-gray-900"></p>
-                                                                    <p class="text-sm text-gray-500 truncate">Creator of Band</p>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
                                                     <h1 class="text-2xl font-bold text-gray-900 truncate">
@@ -149,7 +131,7 @@
                                                         <a @click="switchTab('recognitions')"
                                                            href="#"
                                                            :class="[
-                                                            bandTab === 'recognition' ?
+                                                            bandTab === 'recognitions' ?
                                                                 'border-pink-500 text-gray-900 ' :
                                                                 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                                                             ]"
@@ -339,7 +321,6 @@
                                         <albums v-if="bandTab === 'albums'" :band="band"></albums>
 
                                         <div v-if="bandTab === 'recognitions'">
-                                            <!-- This example requires Tailwind CSS v2.0+ -->
                                             <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                                 <li class="m-4 col-span-1 flex flex-col text-center bg-white rounded-lg shadow border border-gray-300 divide-y divide-gray-200 hover:border-greenlight transition">
                                                     <div class="relative px-6 py-5 flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-yellow-500">

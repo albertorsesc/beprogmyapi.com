@@ -13,7 +13,7 @@ class Album extends Model
     use HasFactory;
 
     protected $casts = ['released_at' => 'integer'];
-    protected $fillable = ['title', 'released_at', 'record_label'];
+    protected $fillable = ['title', 'released_at', 'record_label', 'purchase_link', 'description'];
 
     protected static function boot ()
     {

@@ -27,6 +27,7 @@ class AlbumRequest extends FormRequest
             'title' => ['required', 'max:255'],
             'released_at' => ['integer', 'nullable'],
             'record_label' => ['max:255'],
+            'purchase_link' => ['url', 'nullable', 'max:255'],
         ];
     }
 }
