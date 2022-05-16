@@ -2,11 +2,11 @@
 
 namespace App\Models\Bands;
 
-use App\Classes\ImageProcessor;
 use App\Models\User;
+use App\Classes\ImageProcessor;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 class Album extends Model
 {
@@ -39,5 +39,10 @@ class Album extends Model
     public function creator() : BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function songs() : HasMany
+    {
+        return $this->hasMany(Song::class);
     }
 }

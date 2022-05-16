@@ -11,6 +11,14 @@ export default {
         return {
             albumTab: 'profile'
         }
+    },
+    methods: {
+        switchTab(tab) {
+            this.albumTab = tab;
+        }
+    },
+    components: {
+        Songs: () => import(/* webpackChunkName: "songs" */ './Songs/Songs'),
     }
 }
 </script>

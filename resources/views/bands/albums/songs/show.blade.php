@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Album: ' . e($album->title))
+@section('title', 'Song: ' . e($song->title))
 
 @section('content')
-    <album-profile :album="{{ json_encode($album) }}" inline-template>
+    <song-profile :song="{{ json_encode($song) }}" inline-template>
         <div>
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <div class="w-full md:flex md:justify-between items-center">
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                            Album: <span class="text-greenlight">@{{ album.title }}</span>
+                            Song: <span class="text-greenlight">@{{ song.title }}</span>
                         </h2>
 
                         <nav class="flex" aria-label="Breadcrumb">
@@ -38,8 +38,8 @@
                                         <svg class="flex-shrink-0 w-6 h-full text-gray-200" viewBox="0 0 24 44" preserveAspectRatio="none" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                                         </svg>
-                                        <a :href="`/bands/${album.band.id}`"
-                                           v-text="album.band.name"
+                                        <a :href="`/bands/${song.band.id}`"
+                                           v-text="song.band.name"
                                            class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
                                         ></a>
                                     </div>
@@ -50,7 +50,7 @@
                                             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                                         </svg>
                                         <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                                            Album: @{{ album.title }}
+                                            Song: @{{ song.title }}
                                         </span>
                                     </div>
                                 </li>
@@ -72,10 +72,10 @@
                                             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                                                 <div class="sm:flex sm:items-end sm:space-x-5 relative">
                                                     <div class="flex">
-                                                        <img v-if="album.image"
+                                                        <img v-if="song.image"
                                                              class="h-24 w-24 rounded-lg ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
-                                                             :src="album.image"
-                                                             :alt="album.title + ' image'"
+                                                             :src="song.image"
+                                                             :alt="song.title + ' image'"
                                                              loading="lazy">
                                                         <img v-else
                                                              class="h-24 w-24 rounded-lg ring-4 ring-white sm:h-72 sm:w-72 object-contain object-cover"
@@ -84,7 +84,7 @@
                                                              loading="lazy">
                                                     </div>
                                                     <div class="sm:hidden 2xl:block min-w-0 flex-1 mt-0 top-0">
-                                                        <h1 v-text="album.title" class="underline text-3xl font-bold text-greenlight truncate"></h1>
+                                                        <h1 v-text="song.title" class="underline text-3xl font-bold text-greenlight truncate"></h1>
                                                     </div>
                                                     {{--Actions--}}
                                                     <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-4 sm:pb-1">
@@ -108,7 +108,7 @@
                                                 </div>
                                                 <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
                                                     <h1 class="text-2xl font-bold text-gray-900 truncate">
-                                                        Album: @{{ album.title }}
+                                                        Song: @{{ song.title }}
                                                     </h1>
                                                 </div>
                                             </div>
@@ -122,7 +122,7 @@
                                                         <a @click="switchTab('profile')"
                                                            href="#"
                                                            :class="[
-                                                            albumTab === 'profile' ?
+                                                            songTab === 'profile' ?
                                                                 'border-pink-500 text-gray-900 ' :
                                                                 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                                                             ]"
@@ -130,21 +130,21 @@
                                                            aria-current="page">
                                                             Description
                                                         </a>
-                                                        <a @click="switchTab('songs')"
-                                                           href="#"
-                                                           :class="[
-                                                            albumTab === 'songs' ?
-                                                                'border-pink-500 text-gray-900 ' :
-                                                                'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                                                            ]"
-                                                           class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                                                        >
-                                                            Songs & Lyrics
-                                                        </a>
+                                                        <!--                                                        <a @click="switchTab('songs')"
+                                                                                                                   href="#"
+                                                                                                                   :class="[
+                                                                                                                    songTab === 'songs' ?
+                                                                                                                        'border-pink-500 text-gray-900 ' :
+                                                                                                                        'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                                                                                                                    ]"
+                                                                                                                   class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                                                                                                                >
+                                                                                                                    Songs & Lyrics
+                                                                                                                </a>-->
                                                         <a @click="switchTab('recognitions')"
                                                            href="#"
                                                            :class="[
-                                                            albumTab === 'recognitions' ?
+                                                            songTab === 'recognitions' ?
                                                                 'border-pink-500 text-gray-900 ' :
                                                                 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                                                             ]"
@@ -157,38 +157,38 @@
                                             </div>
                                         </div>
 
-                                        <div v-if="albumTab === 'profile'">
+                                        <div v-if="songTab === 'profile'">
                                             <!-- Description list -->
                                             <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                                                 <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                                                     {{--ReleasedAt--}}
-                                                    <div v-if="album.released_at" class="sm:col-span-1">
+                                                    <div v-if="song.released_at" class="sm:col-span-1">
                                                         <dt class="text-base font-medium text-gray-500">
                                                             Release Year
                                                         </dt>
                                                         <dd class="mt-1 text-base text-gray-900">
-                                                            @{{ album.released_at }}
+                                                            @{{ song.released_at }}
                                                         </dd>
                                                     </div>
 
                                                     {{--RecordLabel--}}
-                                                    <div v-if="album.record_label" class="sm:col-span-1">
+                                                    <div v-if="song.record_label" class="sm:col-span-1">
                                                         <dt class="text-base font-medium text-gray-500">
                                                             Record Label
                                                         </dt>
                                                         <dd class="mt-1 text-base text-gray-900">
-                                                            @{{ album.record_label }}
+                                                            @{{ song.record_label }}
                                                         </dd>
                                                     </div>
 
                                                     {{--PurchaseLink--}}
-                                                    <div v-if="album.purchase_link" class="sm:col-span-1">
+                                                    <div v-if="song.purchase_link" class="sm:col-span-1">
                                                         <dt class="text-base font-medium text-gray-500">
                                                             Purchase Link
                                                         </dt>
                                                         <dd class="mt-1 text-base text-gray-900">
-                                                            <a :href="album.purchase_link"
-                                                               v-text="album.purchase_link"
+                                                            <a :href="song.purchase_link"
+                                                               v-text="song.purchase_link"
                                                                class="hover:underline hover:text-gray-600"
                                                                target="_blank"
                                                             ></a>
@@ -196,19 +196,17 @@
                                                     </div>
 
                                                     {{--About--}}
-                                                    <div v-if="album.description" class="sm:col-span-2">
+                                                    <div v-if="song.description" class="sm:col-span-2">
                                                         <dt class="text-base font-medium text-gray-500">
                                                             Description
                                                         </dt>
                                                         <dd class="mt-1 text-lg font-medium text-gray-900 text-justify">
-                                                            <p v-text="album.description"></p>
+                                                            <p v-text="song.description"></p>
                                                         </dd>
                                                     </div>
                                                 </dl>
                                             </div>
                                         </div>
-
-                                        <songs v-if="albumTab === 'songs'" :album="album"></songs>
                                     </article>
                                 </main>
                             </div>
@@ -217,5 +215,5 @@
                 </div>
             </main>
         </div>
-    </album-profile>
+    </song-profile>
 @endsection

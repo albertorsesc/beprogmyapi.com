@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Band')
+@section('title', 'Band: ' . e($band->name))
 
 @section('content')
     <band-profile :band="{{ json_encode($band) }}" inline-template>
