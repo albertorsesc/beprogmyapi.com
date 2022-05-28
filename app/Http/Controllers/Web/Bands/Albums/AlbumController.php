@@ -12,7 +12,7 @@ class AlbumController extends Controller
     {
         return view('bands.albums.show', [
             'album' => new AlbumResource(
-                $album->load(['band', 'creator'])
+                $album->load(['band', 'songs', 'creator'])
             ),
         ]);
     }

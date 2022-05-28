@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Bands;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Bands\BandResource;
 use App\Models\Bands\Band;
+use App\Models\Recognition;
+use Illuminate\Support\Facades\DB;
 
 class BandController extends Controller
 {
@@ -21,7 +23,7 @@ class BandController extends Controller
                     'creator',
                     'country',
                     'genres',
-                    'albums',
+                    'albums.creator:id,name',
                     'links',
                     'recognitions.user:id,name'
                 ])

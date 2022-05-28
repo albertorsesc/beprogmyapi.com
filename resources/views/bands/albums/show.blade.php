@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Album')
+@section('title', 'Album: ' . e($album->title))
 
 @section('content')
     <album-profile :album="{{ json_encode($album) }}" inline-template>
@@ -130,27 +130,16 @@
                                                            aria-current="page">
                                                             Description
                                                         </a>
-<!--                                                        <a @click="switchTab('albums')"
+                                                        <a @click="switchTab('songs')"
                                                            href="#"
                                                            :class="[
-                                                            albumTab === 'albums' ?
+                                                            albumTab === 'songs' ?
                                                                 'border-pink-500 text-gray-900 ' :
                                                                 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                                                             ]"
                                                            class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                                                         >
                                                             Songs & Lyrics
-                                                        </a>-->
-                                                        <a @click="switchTab('recognitions')"
-                                                           href="#"
-                                                           :class="[
-                                                            albumTab === 'recognitions' ?
-                                                                'border-pink-500 text-gray-900 ' :
-                                                                'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                                                            ]"
-                                                           class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                                                        >
-                                                            Recognition
                                                         </a>
                                                     </nav>
                                                 </div>
@@ -207,6 +196,8 @@
                                                 </dl>
                                             </div>
                                         </div>
+
+                                        <songs v-if="albumTab === 'songs'" :album="album"></songs>
                                     </article>
                                 </main>
                             </div>

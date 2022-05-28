@@ -3,6 +3,7 @@
     use App\Http\Controllers\SubscriptionController;
     use App\Http\Controllers\Web\Bands\Albums\AlbumController;
     use App\Http\Controllers\Web\Bands\BandController;
+    use App\Http\Controllers\Web\Bands\SongController;
     use Illuminate\Support\Facades\Route;
 
     Route::view('/', 'welcome')->name('welcome');

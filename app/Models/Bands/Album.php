@@ -2,16 +2,19 @@
 
 namespace App\Models\Bands;
 
-use App\Classes\ImageProcessor;
+use App\Models\Concerns\GrantsRecognition;
 use App\Models\User;
+use App\Classes\ImageProcessor;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 class Album extends Model
 {
     use HasFactory;
+    use GrantsRecognition;
 
+    protected $touches = ['band'];
     protected $casts = ['released_at' => 'integer'];
     protected $fillable = ['title', 'released_at', 'record_label', 'purchase_link', 'description'];
 
@@ -39,5 +42,10 @@ class Album extends Model
     public function creator() : BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function songs() : HasMany
+    {
+        return $this->hasMany(Song::class)->orderBy('title');
     }
 }

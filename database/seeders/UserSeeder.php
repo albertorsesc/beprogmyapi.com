@@ -21,7 +21,13 @@ class UserSeeder extends Seeder
                 'email' => 'alberto.rsesc@protonmail.com',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
-            ]
+            ],
+            [
+                'name' => 'Valeria Aguila',
+                'email' => 'vale@email.com',
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+            ],
         ];
 
         User::insert($users);
