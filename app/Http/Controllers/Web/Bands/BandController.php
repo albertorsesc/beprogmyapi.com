@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Bands;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Bands\BandResource;
 use App\Models\Bands\Band;
+use App\Models\Recognition;
+use Illuminate\Support\Facades\DB;
 
 class BandController extends Controller
 {
@@ -17,7 +19,13 @@ class BandController extends Controller
     {
         return view('bands.show', [
             'band' => new BandResource(
-                $band->load(['creator', 'country', 'genres', 'albums', 'links'])
+                $band->load([
+                    'genres',
+                    'links',
+                    'country',
+                    'albums.creator:id,name',
+                    'recognitions.user:id,name'
+                ])
             ),
         ]);
     }

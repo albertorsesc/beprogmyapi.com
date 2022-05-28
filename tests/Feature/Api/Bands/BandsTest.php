@@ -54,7 +54,7 @@ class BandsTest extends BandTestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_store_a_band()
+    public function authenticated_user_can_submit_a_band_as_review()
     {
         $band = $this->make(Band::class, ['creator_id' => auth()->id()]);
         [$genre1, $genre2] = $this->create(Genre::class, [], 2);
@@ -71,10 +71,18 @@ class BandsTest extends BandTestCase
 
         $this->assertDatabaseHas(
             'bands',
-            $band->toArray() + ['creator_id' => auth()->id()]
+            array_merge(
+                $band->toArray(),
+                [
+                    'creator_id' => auth()->id(),
+                    'status' => Band::REVIEW_STATUS
+                ]
+            )
         );
 
         $newBand = Band::first();
+        $this->assertTrue($newBand->status === 'review');
+
         foreach ($genres as $genre) {
             $this->assertDatabaseHas('band_genre', [
                 'band_id' => $newBand->id,

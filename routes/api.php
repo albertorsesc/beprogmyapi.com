@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\Api\Bands\BandLinkController;
+    use App\Http\Controllers\Api\Bands\SongController;
     use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\GenreController;
@@ -19,4 +20,5 @@ Route::middleware('auth:sanctum')->name('api.')->group(function () {
     Route::post('bands', [BandController::class, 'store'])->name('bands.store');
     Route::post('bands/{band}/albums', [AlbumController::class, 'store'])->name('bands.albums.store');
     Route::post('bands/{band}/links', [BandLinkController::class, 'store'])->name('bands.links.store');
+    Route::post('albums/{album}/songs', [SongController::class, 'store'])->name('albums.songs.store');
 });

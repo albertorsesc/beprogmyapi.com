@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('city', 255)->nullable();
             $table->longText('bio')->nullable();
             $table->string('image')->nullable();
+            $table->string('status', 20)->default(\App\Models\Bands\Band::REVIEW_STATUS);
             $table->timestamps();
         });
     }

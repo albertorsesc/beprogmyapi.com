@@ -48,14 +48,49 @@
             <p v-if="errors.record_label" v-text="errors.record_label[0]" class="text-red-500"></p>
         </div>
 
-        <!--AlbumImage-->
+        <!--Purchase Site-->
+        <div class="sm:col-span-2">
+            <label for="purchase_link" class="block text-sm font-medium text-gray-700">
+                Official Purchase Site
+                <span class="text-sm text-gray-400">(optional)</span>
+            </label>
+            <div class="mt-1">
+                <input type="text"
+                       v-model="albumForm.purchase_link"
+                       id="purchase_link"
+                       autocomplete="purchase_link"
+                       class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            </div>
+            <p v-if="errors.purchase_link" v-text="errors.purchase_link[0]" class="text-red-500"></p>
+        </div>
+
+        <!--Description-->
         <div class="sm:col-span-4">
-            <file-uploader :on-add-file="onAddFile"/>
+            <label for="description" class="block text-sm font-medium text-gray-700">
+                Short Description
+                <span class="text-sm text-gray-400">(optional)</span>
+            </label>
+            <div class="mt-1">
+                <textarea v-model="albumForm.description"
+                       id="description"
+                       autocomplete="description"
+                      class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      rows="5"
+                ></textarea>
+            </div>
+            <p v-if="errors.description" v-text="errors.description[0]" class="text-red-500"></p>
+        </div>
+
+        <!--AlbumImage-->
+        <div class="sm:col-span-2"></div>
+        <div class="sm:col-span-4">
+            <file-uploader :on-add-file="onAddFile" :is-required="true"/>
+            <p v-if="errors.image" v-text="errors.image[0]" class="text-red-500"></p>
         </div>
 
         <!--Save-->
-        <div class="sm:col-span-2 flex justify-end items-end">
-            <button @click="store" class="btn-primary text-base" :disabled="isLoading">Save</button>
+        <div class="sm:col-span-6 flex justify-end items-end">
+            <button @click="store" class="btn-primary text-lg" :disabled="isLoading">Save</button>
         </div>
     </div>
 </template>
@@ -76,6 +111,8 @@ export default {
                 title: '',
                 released_at: '',
                 record_label: '',
+                purchase_link: '',
+                description: '',
                 image: '',
             },
 

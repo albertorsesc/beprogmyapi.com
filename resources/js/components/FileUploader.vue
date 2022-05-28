@@ -4,6 +4,7 @@
         :store-as-file="true"
         label-idle="Drop Band image or logo here..."
         accepted-file-types="image/jpeg, image/png"
+        :required="isRequired"
         @addfile="onAddFile"
     />
 </template>
@@ -24,7 +25,16 @@ const FilePond = vueFilePond(
 
 export default {
     name: 'FileUploader',
-    props: ['onAddFile'],
+    props: {
+        onAddFile: {
+            type: Function,
+            required: true,
+        },
+        isRequired: {
+            type: Boolean,
+            default: false,
+        },
+    },
     components: {
         FilePond,
     },

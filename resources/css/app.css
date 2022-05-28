@@ -2,6 +2,34 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+html {
+    --scrollbarBG: #CFD8DC;
+    --thumbBG: #79A896;
+}
+body {
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG) ;
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+}
+
+.vertical-scrollbar::-webkit-scrollbar {
+    width: 7px;
+    height: 8px;
+    background-color: #CFD8DC; /* or add it to the track */
+}
+
+/* Add a thumb */
+.vertical-scrollbar::-webkit-scrollbar-thumb {
+    /*background: #90A4AE;*/
+    background: #79A896;
+}
+
 [v-cloak] {display: none}
 
 .btn-primary {

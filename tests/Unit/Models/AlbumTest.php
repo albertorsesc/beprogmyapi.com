@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Bands\Song;
 use App\Models\User;
 use Tests\BandTestCase;
 use App\Models\Bands\Band;
@@ -34,5 +35,18 @@ class AlbumTest extends BandTestCase
         $album = $this->create(Album::class);
 
         $this->assertInstanceOf(User::class, $album->creator);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+    */
+    public function album_has_many_songs()
+    {
+        $this->fakeEvent();
+        $album = $this->create(Album::class);
+        $this->create(Song::class, ['album_id' => $album->id]);
+
+        $this->assertInstanceOf(Song::class, $album->songs->first());
     }
 }

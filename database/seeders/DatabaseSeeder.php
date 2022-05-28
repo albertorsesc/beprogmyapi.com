@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         UserSeeder::class,
         CountrySeeder::class,
         GenreSeeder::class,
+        BandSeeder::class,
     ];
     /**
      * Seed the application's database.

@@ -24,6 +24,8 @@ class AlbumFactory extends Factory
             'title' => $this->faker->sentence,
             'released_at' => $this->faker->dateTimeBetween('-10 years', 'now')->format('Y'),
             'record_label' => $this->faker->sentence,
+            'purchase_link' => $this->faker->url,
+            'description' => $this->faker->sentence,
         ];
     }
 }
