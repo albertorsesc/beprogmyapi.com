@@ -13,7 +13,7 @@ class SongController extends Controller
     public function store(SongRequest $request, Album $album) : JsonResponse
     {
         return response()->json([
-            'data' => $album->songs()->create($request->except('album_id'))
+            'data' => $album->songs()->create($request->all())
         ], Response::HTTP_CREATED);
     }
 }

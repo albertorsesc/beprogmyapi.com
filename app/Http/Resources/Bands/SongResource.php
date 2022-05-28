@@ -20,6 +20,7 @@ class SongResource extends JsonResource
             'duration' => $this->duration,
             'lyric' => $this->lyric,
             'comments' => $this->comments,
+            'created_at' => $this->created_at->diffForHumans()
         ];
     }
 }

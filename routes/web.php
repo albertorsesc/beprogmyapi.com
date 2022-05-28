@@ -19,5 +19,4 @@
         Route::get('bands', [BandController::class, 'index'])->name('bands.index');
         Route::get('bands/{band}', [BandController::class, 'show'])->name('bands.show');
         Route::get('bands/{band}/albums/{album}', [AlbumController::class, 'show'])->name('bands.albums.show');
-        Route::get('albums/{album}/songs/{song}', [SongController::class, 'show'])->name('albums.songs.show');
     });

@@ -141,17 +141,6 @@
                                                         >
                                                             Songs & Lyrics
                                                         </a>
-                                                        <a @click="switchTab('recognitions')"
-                                                           href="#"
-                                                           :class="[
-                                                            albumTab === 'recognitions' ?
-                                                                'border-pink-500 text-gray-900 ' :
-                                                                'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                                                            ]"
-                                                           class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                                                        >
-                                                            Recognition
-                                                        </a>
                                                     </nav>
                                                 </div>
                                             </div>

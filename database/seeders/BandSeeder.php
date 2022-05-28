@@ -29,12 +29,12 @@ class BandSeeder extends Seeder
             ]
         ];
 
-        foreach ($bands as $band) {
+        /*foreach ($bands as $band) {
             Event::fake();
             $newBand = \App\Models\Bands\Band::create($band);
             $newBand->genres()->saveMany(
                 Genre::query()->inRandomOrder()->take(3)->get()
             );
-        }
+        }*/
     }
 }
