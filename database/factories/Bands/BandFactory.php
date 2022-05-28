@@ -28,6 +28,7 @@ class BandFactory extends Factory
             'started_at' => $this->faker->dateTimeBetween('-30 years', 'now')->format('Y'),
             'city' => $this->faker->city,
             'bio' => $this->faker->text(),
+            'status' => $this->faker->randomElement(Band::getStatuses())
         ];
     }
 }

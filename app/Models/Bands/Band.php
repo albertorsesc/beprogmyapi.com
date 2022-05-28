@@ -16,6 +16,9 @@ class Band extends Model
     use GrantsRecognition;
     use SerializeTimestamps;
 
+    const REVIEW_STATUS = 'review';
+    const APPROVED_STATUS = 'approved';
+
     protected $casts = ['started_at' => 'date:Y'];
     protected $fillable = ['name', 'started_at', 'country_id', 'city', 'bio', 'image'];
 
@@ -55,5 +58,13 @@ class Band extends Model
         return $this->belongsTo(Country::class);
     }
 
-    /* Accessors & Mutators */
+    /* Helpers */
+
+    public static function getStatuses() : array
+    {
+        return [
+            'review' => static::REVIEW_STATUS,
+            'approved' => static::APPROVED_STATUS,
+        ];
+    }
 }

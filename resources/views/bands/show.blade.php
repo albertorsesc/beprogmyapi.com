@@ -340,23 +340,6 @@
                                                     </div>
                                                 </li>
                                                 <!--Editors-->
-{{--                                                <li class="m-4 col-span-1 flex flex-col text-center bg-white rounded-lg shadow border border-gray-300 divide-y divide-gray-200 hover:border-greenlight transition">--}}
-{{--                                                    <div class="relative px-6 py-5 flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-yellow-500">--}}
-{{--                                                        <div class="flex-shrink-0">--}}
-{{--                                                            <img class="h-10 w-10 rounded-full"--}}
-{{--                                                                 :src="band.creator.profile_photo_url"--}}
-{{--                                                                 :alt="band.creator.name"--}}
-{{--                                                                 loading="lazy">--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="flex-1 min-w-0">--}}
-{{--                                                            <a href="#" class="focus:outline-none">--}}
-{{--                                                                <span class="absolute inset-0" aria-hidden="true"></span>--}}
-{{--                                                                <p v-text="band.creator.name" class="text-sm font-medium text-gray-900"></p>--}}
-{{--                                                                <p class="text-sm text-gray-500 truncate">Creator of Band</p>--}}
-{{--                                                            </a>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </li>--}}
                                             </ul>
 
                                         </div>

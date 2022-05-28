@@ -20,11 +20,10 @@ class BandController extends Controller
         return view('bands.show', [
             'band' => new BandResource(
                 $band->load([
-                    'creator',
-                    'country',
                     'genres',
-                    'albums.creator:id,name',
                     'links',
+                    'country',
+                    'albums.creator:id,name',
                     'recognitions.user:id,name'
                 ])
             ),
