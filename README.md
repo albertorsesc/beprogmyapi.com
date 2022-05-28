@@ -86,11 +86,11 @@
 #### Installation
 
 ##### **Clone Repo**
-`git clone https://github.com/albertorsesc/be-prog-my-api.git`
+`git clone https://github.com/albertorsesc/beprogmyapi.com.git`
 
 ##### **Install Dependencies**
 ```
-cd be-prog-my-api/
+cd beprogmyapi/
 composer install
 npm install
 ```
